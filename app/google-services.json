@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "652546618205",
+    "project_id": "projectpdf-9cd03",
+    "storage_bucket": "projectpdf-9cd03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652546618205:android:ae4fea21a521838ceb6eb4",
+        "android_client_info": {
+          "package_name": "com.example.projectpdf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652546618205-f7ajvtee2jp3qfb33veh7uk6dqj256k7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOcxZpyJTvQzBCgyyN76VGQ0MOpy1MzLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652546618205-f7ajvtee2jp3qfb33veh7uk6dqj256k7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
