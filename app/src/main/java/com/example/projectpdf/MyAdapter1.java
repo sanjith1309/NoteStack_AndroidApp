@@ -45,8 +45,8 @@ public class MyAdapter1 extends RecyclerView.Adapter<MyAdapter1.MyViewHolder> {
                 String selectedText = user.getSubname();
 
                 // Start a new activity and pass the selectedText as an extra
-                Intent intent = new Intent(context, subselect.class);
-                intent.putExtra("selectedText", selectedText);
+                Intent intent = new Intent(context, showpdf.class);
+                intent.putExtra("selectedsub", selectedText);
                 context.startActivity(intent);
             }
         });

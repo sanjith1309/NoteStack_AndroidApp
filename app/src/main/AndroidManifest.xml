@@ -16,6 +16,15 @@
         android:theme="@style/Theme.ProjectPdf"
         tools:targetApi="31">
         <activity
+            android:name=".uploadpdf"
+            android:exported="false" />
+        <activity
+            android:name=".authsignin"
+            android:exported="false" />
+        <activity
+            android:name=".showpdf"
+            android:exported="false" />
+        <activity
             android:name=".subselect"
             android:exported="false" />
         <activity
