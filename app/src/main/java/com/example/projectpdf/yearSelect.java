@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -26,6 +30,7 @@ public class yearSelect extends AppCompatActivity {
 
 
     private AdView mAdView;
+    Button btlogout;
 
     RecyclerView recyclerView;
     DatabaseReference databasereference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://projectpdf-9cd03-default-rtdb.firebaseio.com/");
@@ -33,10 +38,29 @@ public class yearSelect extends AppCompatActivity {
     ArrayList<semhelper> list;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_year_select);
+
+
+        btlogout=(Button)findViewById(R.id.logoutbt);
+
+        btlogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("name", "False");
+                editor.apply();
+
+
+                Intent myIntent = new Intent(yearSelect.this,MainActivity.class);
+                startActivity(myIntent);
+
+            }
+        });
 
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {

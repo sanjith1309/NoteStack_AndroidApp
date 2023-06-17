@@ -5,12 +5,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".yearSelect">
+    tools:context=".yearSelect"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/recycleview123"
+        android:fontFamily="@font/aldrich"
+        android:text=" CSE"
+        android:textColor="@color/black"
+        android:textAlignment="textStart"
+        android:textSize="40dp"
+        android:textStyle="bold">
+
+    </TextView>
+    <Button
+        android:id="@+id/logoutbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Log out">
+    </Button>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview123"
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
+        android:layout_below="@id/logoutbt"
         android:layout_above="@id/adView"/>
 
     <com.google.android.gms.ads.AdView
