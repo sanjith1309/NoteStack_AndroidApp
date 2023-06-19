@@ -69,6 +69,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginBottom="24dp"
         android:background="@color/white"
+        android:textColor="@color/black"
         android:text="Sign in"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
