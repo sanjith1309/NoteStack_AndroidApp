@@ -8,6 +8,7 @@
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     android:layout_marginStart="20dp"
+    app:cardBackgroundColor="@color/white"
     android:layout_marginEnd="20dp">
     <RelativeLayout
         android:padding="10dp"
@@ -33,6 +34,7 @@
             android:layout_toEndOf="@id/img"
             android:layout_centerVertical="true"
             android:text="@string/pdf_file_name"
+            android:fontFamily="@font/aldrich"
             android:includeFontPadding="false"
             android:letterSpacing="0.02"
             android:textColor="@color/black"
