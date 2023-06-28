@@ -32,7 +32,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class showpdf extends AppCompatActivity {
 
-    private AdView mAdView;
+
     String selectedText;
     Button uploadbt;
     RecyclerView pdfRecyclerView;
@@ -49,15 +49,6 @@ public class showpdf extends AppCompatActivity {
 
         selectedText = getIntent().getStringExtra("selectedsub");
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
         uploadbt.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -29,7 +29,6 @@ import java.util.Date;
 public class yearSelect extends AppCompatActivity {
 
 
-    private AdView mAdView;
     Button btlogout;
 
     RecyclerView recyclerView;
@@ -62,16 +61,6 @@ public class yearSelect extends AppCompatActivity {
             }
         });
 
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
 
 

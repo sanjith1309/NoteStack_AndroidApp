@@ -25,7 +25,6 @@ public class subselect extends AppCompatActivity {
 
 
     String selectedText;
-    private AdView mAdView;
 
     RecyclerView recyclerView;
     DatabaseReference databasereference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://projectpdf-9cd03-default-rtdb.firebaseio.com/");
@@ -41,15 +40,6 @@ public class subselect extends AppCompatActivity {
         Log.i("qwertyuiopsdfghjk",selectedText);
 
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
 
 
