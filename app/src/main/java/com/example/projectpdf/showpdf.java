@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +31,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
 
 
 public class showpdf extends AppCompatActivity {
@@ -107,17 +116,63 @@ public class showpdf extends AppCompatActivity {
                 .build();
         FirebaseRecyclerAdapter<FileinModel, Adapter> adapter = new FirebaseRecyclerAdapter<FileinModel, Adapter>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull  Adapter holder, int position, @NonNull FileinModel model) {
+            protected void onBindViewHolder(@NonNull final Adapter holder, int position, @NonNull final FileinModel model) {
 
                 progressBar.setVisibility(View.GONE);
                 holder.pdfTitle.setText(model.getFilename());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setType("application/pdf");
-                        intent.setData(Uri.parse(model.getFileurl()));
-                        startActivity(intent);
+                        // Generate a unique filename for the downloaded PDF
+                        String filename = model.getFilename() + ".pdf";
+
+                        // Create a reference to the file to be downloaded
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReferenceFromUrl(model.getFileurl());
+
+                        // Create a folder named "mydownloadedpdfs" in the internal storage
+                        File folder = new File(getExternalFilesDir(null), "mydownloadedpdfs");
+                        if (!folder.exists()) {
+                            folder.mkdirs();
+                        }
+
+                        // Create a file in the "mydownloadedpdfs" folder with the generated filename
+                        final File file = new File(folder, filename);
+
+                        // Show a progress dialog to indicate the download is in progress
+
+                        ProgressDialog progressDialog = new ProgressDialog(showpdf.this);
+                        progressDialog.setMessage("Downloading PDF...");
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        progressDialog.setIndeterminate(false);
+                        progressDialog.setProgress(0);
+                        progressDialog.setMax(100);
+                        progressDialog.show();
+
+                        // Start the download task
+                        storageRef.getFile(file)
+                                .addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onProgress(@NonNull FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        // Update the progress dialog with the download progress
+                                        int progress = (int) ((100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
+                                        progressDialog.setProgress(progress);
+                                    }
+                                })
+                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(showpdf.this, "PDF downloaded successfully.View in DOWNLOADS", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(showpdf.this, "Failed to download PDF", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 });
 
@@ -126,7 +181,7 @@ public class showpdf extends AppCompatActivity {
             @NonNull
             @Override
             public Adapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pdf_item,parent,false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pdf_item, parent, false);
                 Adapter holder = new Adapter(view);
                 return holder;
             }
@@ -135,6 +190,8 @@ public class showpdf extends AppCompatActivity {
         pdfRecyclerView.setAdapter(adapter);
         adapter.startListening();
     }
+
+
 
     @Override
     public void onBackPressed() {

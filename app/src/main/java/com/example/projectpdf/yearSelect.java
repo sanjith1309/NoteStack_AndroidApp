@@ -29,7 +29,7 @@ import java.util.Date;
 public class yearSelect extends AppCompatActivity {
 
 
-    Button btlogout;
+    Button btlogout,btdown;
 
     RecyclerView recyclerView;
     DatabaseReference databasereference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://projectpdf-9cd03-default-rtdb.firebaseio.com/");
@@ -45,6 +45,7 @@ public class yearSelect extends AppCompatActivity {
 
 
         btlogout=(Button)findViewById(R.id.logoutbt);
+        btdown=(Button)findViewById(R.id.downbt);
 
         btlogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +61,16 @@ public class yearSelect extends AppCompatActivity {
 
             }
         });
+
+        btdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(yearSelect.this, viewdownloads.class);
+                startActivity(myIntent);
+            }
+        });
+
+
 
 
 
