@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ import java.util.Date;
 public class yearSelect extends AppCompatActivity {
 
 
-    Button btlogout,btdown;
+    Button btlogout,btdown,feedbt;
 
     RecyclerView recyclerView;
     DatabaseReference databasereference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://projectpdf-9cd03-default-rtdb.firebaseio.com/");
@@ -43,7 +44,7 @@ public class yearSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_year_select);
 
-
+        feedbt=(Button)findViewById(R.id.feedbackbt);
         btlogout=(Button)findViewById(R.id.logoutbt);
         btdown=(Button)findViewById(R.id.downbt);
 
@@ -61,6 +62,16 @@ public class yearSelect extends AppCompatActivity {
 
             }
         });
+
+
+        feedbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://grievances-note-stack.netlify.app/"));
+                startActivity(urlIntent);
+            }
+        });
+
 
         btdown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,11 +120,10 @@ public class yearSelect extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
+    }
+    @Override
+    public void onBackPressed() {
+        //Toast.makeText(this, "Back button and back gesture are disabled.", Toast.LENGTH_SHORT).show();
+        // You can add additional code here if needed
     }
 }
